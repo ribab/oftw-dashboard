@@ -1,0 +1,10 @@
+.env
+.venv/
+archive/
+*.pkl
+*.out
+.git/
+*.pkl
+*.out
+*.pyc
+__pycache__/

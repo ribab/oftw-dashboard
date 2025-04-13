@@ -1,0 +1,23 @@
+# This project uses Vizro, which is a metaframework built on top of Plotly Dash.
+
+# When developing metrics and components, use the `if __name__ == '__main__'` section
+# at the bottom of each file to write a simple test case that can be used while
+# developing the file so I can double check its' output.
+
+# Example:
+
+if __name__ == '__main__':
+    import sys
+    from pathlib import Path
+    project_root = Path(__file__).parent.parent.parent.parent
+    if str(project_root) not in sys.path:
+        sys.path.append(str(project_root))
+    
+    # Import the load_pledges function from utils.datasource
+    from src.utils.datasource import load_pledges, load_payments, load_merged_payments_and_pledges
+    
+    # Load the pledges data
+    print("Loading pledges data...")
+    pledges_df = load_pledges()
+
+    # then the rest of the code to visualize, whether its using Vizro or Plotly
