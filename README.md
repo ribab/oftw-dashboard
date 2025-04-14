@@ -51,7 +51,7 @@ cd src
 python app.py
 ```
 
-3. Open your web browser and navigate to `http://localhost:8050` (or the URL shown in your terminal)
+3. Open your web browser and navigate to `http://localhost:10000` (or the URL shown in your terminal)
 
 ## Data Sources
 
