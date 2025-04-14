@@ -2,6 +2,8 @@
 
 This project provides an interactive dashboard for analyzing One For The World (OFTW) pledge and payment data from 2014 to present. The dashboard offers various insights and visualizations to help understand donation patterns, pledge fulfillment, and other key metrics.
 
+![Screenshot](screenshot.png)
+
 ## Features
 
 - Interactive data visualizations using Plotly and Vizro
