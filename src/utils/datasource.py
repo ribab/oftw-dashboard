@@ -19,6 +19,12 @@ project_root = Path(__file__).parent.parent.parent
 # Get file paths from environment variables
 payments_path = project_root / 'one-for-the-world-payments.json'
 pledges_path = project_root / 'one-for-the-world-pledges.json'
+
+if not os.path.exists(payments_path):
+    project_root = Path(__file__).parent.parent
+    payments_path = project_root / 'one-for-the-world-payments.json'
+    pledges_path = project_root / 'one-for-the-world-pledges.json'
+
 cached_payments_path = os.path.join(os.path.dirname(payments_path), 'cached_payments.pkl')
 cached_pledges_path = os.path.join(os.path.dirname(pledges_path), 'cached_pledges.pkl')
 
