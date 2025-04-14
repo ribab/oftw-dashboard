@@ -117,11 +117,11 @@ class AIGraphGenerator(vm.VizroBaseModel):
                     ], className="mb-3"),
                     
                     html.Div([
-                        html.Label("Google API Key", className="form-label"),
+                        html.Label("Google Gemini API Key", className="form-label"),
                         dcc.Input(
                             id=f"{self.id}_api_key",
                             type="password",
-                            placeholder="Enter your Google API Key",
+                            placeholder="Enter your Google Gemini API Key",
                             className="form-control",
                             style={"width": "100%"},
                         ),
@@ -174,11 +174,11 @@ class AIGraphGenerator(vm.VizroBaseModel):
                     ], className="mb-3"),
                     
                     html.Div([
-                        html.Label("Google API Key", className="form-label"),
+                        html.Label("Google Gemini API Key", className="form-label"),
                         dcc.Input(
                             id=f"{self.id}_modify_api_key",
                             type="password",
-                            placeholder="Enter your Google API Key",
+                            placeholder="Enter your Google Gemini API Key",
                             className="form-control",
                             style={"width": "100%"}
                         )

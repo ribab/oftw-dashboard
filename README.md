@@ -1,36 +1,64 @@
-https://community.plotly.com/t/plotly-oftw-app-building-challenge/90724
+# OFTW Data Analytics Dashboard
 
-# The Challenge
+This project provides an interactive dashboard for analyzing One For The World (OFTW) pledge and payment data from 2014 to present. The dashboard offers various insights and visualizations to help understand donation patterns, pledge fulfillment, and other key metrics.
 
-For this month’s app-building challenge, we’ve partnered with One For The World (OFTW), whose mission is to scale the effective giving movement addressing extreme poverty.
+## Features
 
-OFTW is asking the Plotly community to help it build an internal-facing data app that will provide insights into its monetary pledges and payments from 2014 to the present time. Find out more about the data at the end of the post.
+- Interactive data visualizations using Plotly and Vizro
+- AI-powered insights generation (optional)
+- Historical pledge and payment analysis
+- Customizable date ranges and filtering options
 
-OFTW’s metrics wishlist is a list of insights that OFTW is hoping to gain from the data. However, OFTW welcomes new data insights that are not part of the wishlist.
+## Setup
 
-The winning apps will be judged according to the following categories:
+1. Clone the repository:
+```bash
+git clone <your-repository-url>
+cd oftw_app_building_challenge
+```
 
-Data insights revealed from the dataset (how helpful the insights are to the OFTW team)
-App UI/UX Design
-Bonus points for integration of LLMs to facilitate app interactivity and insights
-The winners will be announced at the end of April and will receive the following rewards (thank you to OFTW for contributing to the rewards):
+2. Create and activate a virtual environment (recommended):
+```bash
+python -m venv venv
+source venv/bin/activate  # On Windows, use: venv\Scripts\activate
+```
 
-:1st_place_medal: $500 USD
+3. Install dependencies:
+```bash
+pip install -r requirements.txt
+```
 
-:2nd_place_medal: $250 USD
+4. Environment Setup (Optional - for AI Features):
+   - Create a `.env` file in the `src` directory
+   - Add your Google API key for AI functionality:
+   ```
+   GOOGLE_API_KEY=your_api_key_here
+   ```
 
-:3rd_place_medal: $100 USD
+## Running the Application
 
-To submit your app, share it by replying to this Forum topic by midnight Sunday (your time zone), April 13. Please include a link to the app, the code on GitHub, and a short description of the app.
+1. Navigate to the src directory:
+```bash
+cd src
+```
 
-The Data:
+2. Run the application:
+```bash
+python app.py
+```
 
-The two datasets (pledges and payments), metadata file, and wishlist:
+3. Open your web browser and navigate to `http://localhost:8050` (or the URL shown in your terminal)
 
-https://storage.googleapis.com/plotly-app-challenge/one-for-the-world-pledges.json
-https://storage.googleapis.com/plotly-app-challenge/one-for-the-world-payments.json
+## Data Sources
 
-[Metadata file](https://docs.google.com/spreadsheets/d/1XSlvYfBxqAPvdXLCG7hnVzjCCjAtQ5CpGUebhU-8sPg/edit?usp=sharing)
-[OFTW’s metrics wishlist](https://docs.google.com/spreadsheets/d/1fIjasvRyjI2VPyGnNvs6SAwG5PuKw2sQkGlAwlCX1WA/edit?usp=sharing)
+The application uses two main data sources:
+- Pledge data: Historical pledge information from OFTW supporters
+- Payment data: Actual payment records linked to pledges
 
-If there is a need, both datasets can be joined with the pledge_id field. For more context, people sign up (“pledge”) to OFTW to start giving some amount in the future. Once the pledge becomes live, they start making donations (“payment”).
+## Contributing
+
+Feel free to submit issues and enhancement requests!
+
+## License
+
+[Your chosen license]

@@ -244,8 +244,9 @@ def create_home_page(payments_df, pledges_df, merged_df):
         layout=vm.Grid(
             grid=[[0, 1, 2],
                   [3, 4, 5],  # KPI cards on top, monthly metrics below
+                  [6, 6, 6],
                   [6, 6, 6]],  # KPI cards on top, monthly metrics below
-            # row_min_height='150px'
+            row_min_height='250px'
         ),
         components=[*kpi_cards, fiscal_year_metrics],
         controls=[
@@ -314,13 +315,13 @@ def create_home_page(payments_df, pledges_df, merged_df):
 
 def create_channel_chapter_page(pledges_df):
     """Both channel and chapter are the same thing according to metadata.md"""
-    # from vizro.managers import data_manager
+    from vizro.managers import data_manager
     
-    # def get_pledges_df():
-    #     return pledges_df
+    def get_pledges_df():
+        return pledges_df
 
-    # # Register the pledges data with the data manager
-    # data_manager["pledges"] = get_pledges_df
+    # Register the pledges data with the data manager
+    data_manager["channel_chapter_pledges"] = get_pledges_df
 
     @capture('graph')
     def active_and_pledged_donors_chart(data_frame):
@@ -356,7 +357,7 @@ def create_channel_chapter_page(pledges_df):
                     components=[
                         vm.Graph(
                             id="active_and_pledged_donors_chart",
-                            figure=active_and_pledged_donors_chart(pledges_df),
+                            figure=active_and_pledged_donors_chart("channel_chapter_pledges"),
                         ),
                     ]
                 ),
@@ -365,7 +366,7 @@ def create_channel_chapter_page(pledges_df):
                     components=[
                         vm.Graph(
                             id="active_donors_chart",
-                            figure=active_donors_chart(pledges_df),
+                            figure=active_donors_chart("channel_chapter_pledges"),
                         ),
                     ]
                 ),
@@ -374,7 +375,7 @@ def create_channel_chapter_page(pledges_df):
                     components=[
                         vm.Graph(
                             id="pledged_donors_chart",
-                            figure=pledged_donors_chart(pledges_df),
+                            figure=pledged_donors_chart("channel_chapter_pledges"),
                         ),
                     ]
                 ),
@@ -539,8 +540,8 @@ if __name__ == "__main__":
     dashboard = vm.Dashboard(
         pages=[
             create_home_page(payments_df, pledges_df, merged_df),
-            create_channel_chapter_page(pledges_df),
             create_monthly_metrics_page(payments_df, pledges_df, merged_df),
+            create_channel_chapter_page(pledges_df),
             create_ai_page(payments_df, pledges_df, merged_df),
         ],
         title="One for the World Analytics"
