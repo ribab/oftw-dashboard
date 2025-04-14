@@ -155,7 +155,6 @@ def custom_chart(
     fig.add_trace(go.Bar(
         x=monthly_totals['month_label'],
         y=monthly_totals['arr_change'],
-        name='Total ARR',
         marker_color='#1f77b4',
         text=monthly_totals['arr_change'].apply(lambda x: f"${x:,.0f}"),
         textposition='auto'
@@ -167,7 +166,6 @@ def custom_chart(
             x=monthly_totals['month_label'],
             y=[target] * len(monthly_totals),
             mode='lines',
-            name=f'Target (${target:,.0f})',
             line=dict(color='#808080', dash='dash'),  # Changed to gray
         ))
     
@@ -184,16 +182,9 @@ def custom_chart(
         xaxis_title='Month',
         yaxis_title='Annual Recurring Revenue (USD)',
         template='plotly_white',
-        margin=dict(t=80),
+        margin=dict(t=80, b=0),
         bargap=0.2,
-        # Move legend to bottom
-        legend=dict(
-            orientation="h",
-            yanchor="bottom",
-            y=-0.45,
-            xanchor="center",
-            x=0.5
-        )
+        showlegend=False  # Hide the legend
     )
 
     # Update axes

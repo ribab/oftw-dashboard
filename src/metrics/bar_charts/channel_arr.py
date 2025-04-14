@@ -55,17 +55,17 @@ def custom_chart(data_frame, month=None, start_column='pledge_created_at', end_c
     active_df['annualized_usd_amount'] = active_df.apply(annualized_amount, axis=1)
 
     # Group by payment platform and sum the annualized amounts
-    channel_arr = active_df.groupby('payment_platform')['annualized_usd_amount'].sum().reset_index()
+    channel_arr = active_df.groupby('donor_chapter')['annualized_usd_amount'].sum().reset_index()
 
     # Sort the payment platforms by annualized amount
     channel_arr = channel_arr.sort_values(by='annualized_usd_amount', ascending=False)
 
     # Create bar chart
     fig = go.Figure(data=[
-        go.Bar(x=channel_arr['payment_platform'], y=channel_arr['annualized_usd_amount'])
+        go.Bar(x=channel_arr['donor_chapter'], y=channel_arr['annualized_usd_amount'])
     ])
 
-    title = 'Annualized Run Rate by Channel'
+    title = 'Annualized Run Rate by Chapter'
     if month:
         title += f' ({month})'
     if subtitle:
@@ -99,7 +99,7 @@ if __name__ == "__main__":
         sys.path.append(str(project_root))
     
     # Import the load_pledges function from utils.datasource
-    from src.utils.datasource import load_pledges
+    from utils.datasource import load_pledges
     
     # Load the pledges data
     print("Loading pledges data...")

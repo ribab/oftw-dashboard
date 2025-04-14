@@ -42,7 +42,6 @@ def calculate_attrition_rate(data_frame):
     return attrition_rate, attrition_pledges
 
 # Create a custom figure using Dash components
-@capture("figure")
 def get_figure(data_frame):
     """
     Create a custom KPI figure using dash_bootstrap_components and dash.html
@@ -75,9 +74,9 @@ def get_figure(data_frame):
         title="All-Time Attrition Rate",
         subtitle="% of churned/failed pledges vs all pledges",
         value=attrition_formatted,
-        target_value=f"{target_rate:.1f}%",
         is_on_target=is_on_target,
-        comparison_text=status_text,
+        on_target_msg=f"below target of {target_rate:.1f}%",
+        off_target_msg=f"above target of {target_rate:.1f}%",
         additional_metrics=additional_metrics
     )
     
@@ -110,7 +109,7 @@ if __name__ == "__main__":
             # Option 2: Custom Figure component with Bootstrap styling
             vm.Figure(
                 id="attrition-kpi-bootstrap",
-                figure=get_figure(pledges_df)
+                figure=capture('figure')(lambda data_frame: get_figure(data_frame))(pledges_df)
             ),
         ]
     )

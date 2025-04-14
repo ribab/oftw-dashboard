@@ -107,16 +107,11 @@ def create_money_moved_kpi_card(data_frame, counterfactual=False):
         title=title,
         subtitle=subtitle,
         value=formatted_value,
-        target_value=formatted_target,
         is_on_target=is_on_target,
-        delta_value=formatted_delta,
-        comparison_text=comparison_text,
-        target_label="Target",
+        on_target_msg=f"above target of {formatted_target}",
+        off_target_msg=f"below target of {formatted_target}",
         additional_metrics=[
-            {
-                'label': 'Target',
-                'value': f"Target: {formatted_target}"
-            }
+            f"Target: {formatted_target}",
         ]
     )
     

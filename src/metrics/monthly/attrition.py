@@ -104,17 +104,16 @@ def attrition_chart(data_frame, title='Monthly Attrition Rate', target=0.18):
         legend=dict(
             orientation="h",
             yanchor="top",
-            y=-0.15,
+            y=-0.5,
             xanchor="center",
             x=0.5
         ),
         margin=dict(
-            t=100,
-            b=150,
+            t=80,
+            b=100,
             l=50,
             r=50
         ),
-        height=700
     )
     
     # Rotate x-axis labels

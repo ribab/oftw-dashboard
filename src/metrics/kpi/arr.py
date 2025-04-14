@@ -44,7 +44,11 @@ def calculate_current_arr(data_frame, start_column, end_column, month=None):
 
     # Get current date
     if month is None:
-        month = datetime.datetime.now().strftime('%Y-%m')
+        if 'fiscal_year' in data_frame.columns:
+            fiscal_year = data_frame.iloc[-1]['fiscal_year']
+            month = f"{fiscal_year.split('-')[1]}-06"
+        else:
+            month = datetime.datetime.now().strftime('%Y-%m')
     
     # filter for pledges with dt >= start_column and dt <= end_column
     if end_column == 'pledge_ended_at':
@@ -71,8 +75,8 @@ def calculate_current_arr(data_frame, start_column, end_column, month=None):
 def create_arr_kpi_card(
         data_frame,
         target_arr=1_800_000,
-        title="Active ARR + Future ARR",
-        subtitle="Total Annualized Recurring Revenue from active and pledged donors",
+        title="Total ARR",
+        subtitle="Active + pledged donors",
         start_column='pledge_created_at',
         end_column='pledge_ended_at',
         month=None
@@ -89,14 +93,14 @@ def create_arr_kpi_card(
     Returns:
         A Dash component representing the KPI card
     """
-    from src.components.kpi_card import create_kpi_card
+    from components.kpi_card import create_kpi_card
     
     # Calculate current ARR
     current_arr = calculate_current_arr(data_frame, start_column, end_column, month)
     
     # Format values for display
     formatted_arr = f"${current_arr:,.0f}"
-    formatted_target = f"${target_arr:,.0f}"
+    formatted_target = f"${target_arr/1e6:.1f}M"
     
     # Calculate delta and determine if on target
     delta = current_arr - target_arr
@@ -125,11 +129,11 @@ def create_arr_kpi_card(
         title=title,
         subtitle=subtitle,
         value=formatted_arr,
-        target_value=formatted_target,
         is_on_target=is_on_target,
-        comparison_text=comparison_text,
+        on_target_msg=f"above {formatted_target} target",
+        off_target_msg=f"below {formatted_target} target",
         additional_metrics=[
-            f"{active_pledges_count} active and future pledges",
+            f"{active_pledges_count} pledges",
             f"{unique_donor_count} unique donors"
         ]
     )
@@ -156,7 +160,7 @@ def create_future_arr_kpi_card(data_frame, target_arr=600_000, month=None):
         data_frame=data_frame,
         target_arr=target_arr,
         title="Future ARR",
-        subtitle="Projected annual value of committed future pledges",
+        subtitle="From pledged donors",
         start_column='pledge_created_at',
         end_column='pledge_starts_at',
         month=month
@@ -182,7 +186,7 @@ def create_active_arr_kpi_card(data_frame, target_arr=1_200_000, month=None):
         data_frame=data_frame,
         target_arr=target_arr,
         title="Active ARR",
-        subtitle="Current annual run rate from active pledges only",
+        subtitle="From active donors",
         start_column='pledge_starts_at',
         end_column='pledge_ended_at',
         month=month
@@ -198,8 +202,8 @@ if __name__ == '__main__':
         sys.path.append(str(project_root))
     
     # Import the load_pledges function from utils.datasource
-    from src.utils.datasource import load_pledges
-    from src.utils.developer_tools import find_available_port
+    from utils.datasource import load_pledges
+    from utils.developer_tools import find_available_port
     
     # Load the pledges data
     print("Loading pledges data...")

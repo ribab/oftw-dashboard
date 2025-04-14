@@ -139,7 +139,6 @@ def pledges_chart(data_frame, start_column='pledge_created_at', end_column='pled
             l=50,   # Left margin
             r=50    # Right margin
         ),
-        height=700  # Increased overall height of the figure
     )
     
     # Rotate x-axis labels for better readability

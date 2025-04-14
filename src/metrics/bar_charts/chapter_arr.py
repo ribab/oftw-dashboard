@@ -18,15 +18,15 @@ import pandas as pd
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 
-def custom_chart(data_frame, chapter_type, month=None, start_column='pledge_created_at', end_column='pledge_ended_at', subtitle=None):
+def custom_chart(data_frame, month=None, start_column='pledge_created_at', end_column='pledge_ended_at', subtitle=None, title=None):
     """Create a bar chart for a specific chapter type's ARR
     
     Args:
         data_frame: Pandas DataFrame with pledge data
         chapter_type: String specifying which chapter type to plot (e.g. 'UG', 'Grad', etc.)
     """
-    if chapter_type == '':
-        chapter_type = '<No chapter type>'
+    # if chapter_type == '':
+    #     chapter_type = '<No chapter type>'
     if month is None:
         month = pd.Timestamp.now().strftime('%Y-%m')
     
@@ -58,16 +58,8 @@ def custom_chart(data_frame, chapter_type, month=None, start_column='pledge_crea
     chapter_arr = active_df.groupby(['donor_chapter', 'chapter_type'])['annualized_usd_amount'].sum().reset_index()
     
     # Filter for specific chapter type and sort
-    df_type = chapter_arr[chapter_arr['chapter_type'] == chapter_type].copy()
+    df_type = chapter_arr.copy()
     df_type = df_type.sort_values('annualized_usd_amount', ascending=False)
-
-    # Colors for consistency
-    colors = {
-        'UG': '#1f77b4',  # Blue
-        'Grad': '#2ca02c',  # Green
-        'Professional': '#ff7f0e',  # Orange
-        'Other': '#d62728'  # Red
-    }
 
     # Create the bar chart
     fig = go.Figure()
@@ -78,24 +70,29 @@ def custom_chart(data_frame, chapter_type, month=None, start_column='pledge_crea
             y=df_type['annualized_usd_amount'],
             text=[f"${val:,.0f}" for val in df_type['annualized_usd_amount']],
             textposition='auto',
-            marker_color=colors.get(chapter_type, '#7f7f7f'),
             showlegend=False
         )
     )
 
-    title = f'Annual Recurring Revenue - {chapter_type} Chapters'
-    if subtitle:
+    if title and subtitle:
         title += f'<br><span style="font-size: 12px; color: #888;">{subtitle}</span>'
 
     # Update layout
     fig.update_layout(
-        title=title,
         xaxis_title='Chapter',
-        yaxis_title='Annual Recurring Revenue (USD)',
+        yaxis_title='ARR (USD)',
         template='plotly_white',
-        height=400,
-        margin=dict(t=50, b=0)
     )
+
+    if title:
+        fig.update_layout(
+            title=title,
+            margin=dict(t=50, b=0)
+        )
+    else:
+        fig.update_layout(
+            margin=dict(t=0, b=0)
+        )
 
     # Update axes
     fig.update_xaxes(tickangle=45)

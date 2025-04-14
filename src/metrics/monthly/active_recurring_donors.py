@@ -177,7 +177,7 @@ def custom_chart(data_frame):
         legend=dict(
             orientation="h",
             yanchor="top",
-            y=-0.2,
+            y=-0.4,
             xanchor="center",
             x=0.5
         ),
