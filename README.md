@@ -59,6 +59,8 @@ The application uses two main data sources:
 - Pledge data: Historical pledge information from OFTW supporters
 - Payment data: Actual payment records linked to pledges
 
+If you want to refresh the data sources with updated data, make sure to remove the *.pkl files so they can be regenerated.
+
 ## Contributing
 
 Feel free to submit issues and enhancement requests!
