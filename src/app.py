@@ -555,4 +555,4 @@ if __name__ == "__main__":
     port = find_available_port()
     
     # Run the app
-    app.run(debug=True, port=port)
+    app.run(debug=True, port=port, host='0.0.0.0')
