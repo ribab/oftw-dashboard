@@ -1,4 +1,4 @@
-# OFTW Data Analytics Dashboard
+9# OFTW Data Analytics Dashboard
 
 This project provides an interactive dashboard for analyzing One For The World (OFTW) pledge and payment data from 2014 to present. The dashboard offers various insights and visualizations to help understand donation patterns, pledge fulfillment, and other key metrics.
 
@@ -67,4 +67,4 @@ Feel free to submit issues and enhancement requests!
 
 ## License
 
-[Your chosen license]
+Apache 2.0 (Same as Vizro)
