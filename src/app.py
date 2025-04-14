@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import os
 import sys
 from pathlib import Path
 import pandas as pd
@@ -549,6 +550,8 @@ if __name__ == "__main__":
     
     # Build and run the dashboard
     app = Vizro().build(dashboard)
+
+    from utils.developer_tools import find_available_port
     
     # Run the app
-    app.run(debug=True, port=10000, host='0.0.0.0')
+    app.run(debug=True, port=os.getenv('PORT', find_available_port()), host='0.0.0.0')
