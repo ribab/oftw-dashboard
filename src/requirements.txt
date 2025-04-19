@@ -5,3 +5,4 @@ dotenv
 tqdm
 vizro_ai
 langchain_google_genai
+gunicorn
