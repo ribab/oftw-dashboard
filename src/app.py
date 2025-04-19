@@ -4,10 +4,14 @@ import sys
 from pathlib import Path
 import pandas as pd
 from datetime import datetime
+from dotenv import load_dotenv
 import vizro.models as vm
 import vizro.plotly.express as px
 from vizro import Vizro
 from vizro.models.types import capture
+
+# Load environment variables from .env file
+load_dotenv()
 
 # Add project root to path
 project_root = Path(__file__).parent
@@ -532,7 +536,9 @@ def create_ai_page(payments_df, pledges_df, merged_df):
         ]
     )
 
-if __name__ == "__main__":
+def get_app():
+    """Initialize data and create the Vizro app instance"""
+    # Load the data
     payments_df = load_payments()
     pledges_df = load_pledges()
     merged_df = load_merged_payments_and_pledges()
@@ -548,10 +554,13 @@ if __name__ == "__main__":
         title="One for the World Analytics"
     )
     
-    # Build and run the dashboard
+    # Build the dashboard and expose server for gunicorn
     app = Vizro().build(dashboard)
+    return app
 
+if __name__ == "__main__":
+    app = get_app()
     from utils.developer_tools import find_available_port
     
-    # Run the app
+    # Run the app in development mode
     app.run(debug=True, port=os.getenv('PORT', find_available_port()), host='0.0.0.0')

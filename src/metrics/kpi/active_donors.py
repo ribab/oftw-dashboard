@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # Active Donors KPI Card
 # This file creates a KPI card showing the total number of active donors
+# %%
 import sys
 from pathlib import Path
 import pandas as pd
@@ -104,3 +105,4 @@ if __name__ == "__main__":
     from utils.developer_tools import find_available_port
     port = find_available_port()
     Vizro().build(dashboard).run(port=port) 
+# %%
