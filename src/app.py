@@ -436,84 +436,110 @@ def create_monthly_metrics_page(payments_df, pledges_df, merged_df):
     
     return vm.Page(
         title="Monthly Metrics",
-        layout=vm.Grid(
-            grid=[
-                [0], [1], [1], [2], [2], [3], [3], [4], [4], [5], [5], [5], [5]
-            ],
-            # row_gap='',
-            row_min_height='200px'
-        ),
         components=[
-            vm.Text(text="""
-                Table of contents:
-                - [Donors with Active Pledges Per Month](#active_recurring_donors_chart)
-                - [All Active Donors at Month End](#all_active_donors_chart)
-                - [Attrition Rate](#attrition_rate_chart)
-                - [Monthly Donations](#monthly_donations_chart)
-                - [Active + Pledged Donors](#pledges_chart)
-                - [Active Donors](#active_pledges_chart)
-                - [Pledged Donors](#future_pledges_chart)
-                - [Annual Recurring Revenue](#arr_chart)
-            """),
-            # active recurring donors
-            vm.Graph(
-                id="active_recurring_donors_chart",
-                figure=capture('graph')(lambda data_frame: metrics.monthly.active_recurring_donors.custom_chart(data_frame))("monthly_metrics_pledges")
-            ),
-            # all active donors
-            vm.Graph(
-                id="all_active_donors_chart",
-                figure=capture('graph')(lambda data_frame: metrics.monthly.all_active_donors.custom_chart(data_frame))("monthly_metrics_pledges")
-            ),
-            # attrition rate
-            vm.Graph(
-                id="attrition_rate_chart",
-                figure=capture('graph')(lambda data_frame: metrics.monthly.attrition.attrition_chart(data_frame))("monthly_metrics_pledges")
-            ),
-            # monthly donations
-            vm.Graph(
-                id="monthly_donations_chart",
-                figure=capture('graph')(lambda data_frame: metrics.monthly.monthly_donations.custom_chart(data_frame))("monthly_metrics_payments")
-            ),
-            # arr and pledges
             vm.Tabs(tabs=[
                 vm.Container(
-                    title="Active + Pledged Donors",
+                    title="Donors with Active Pledges Per Month",
                     components=[
                         vm.Graph(
-                            id="pledges_chart",
-                            figure=capture('graph')(lambda data_frame: metrics.monthly.pledges.pledges_chart(data_frame))("monthly_metrics_pledges")
-                        ),
-                        vm.Graph(
-                            id="arr_chart",
-                            figure=capture('graph')(lambda data_frame: metrics.monthly.arr.custom_chart(data_frame, start_column='pledge_created_at', end_column='pledge_ended_at'))("monthly_metrics_pledges")
+                            id="active_recurring_donors_chart",
+                            figure=capture('graph')(lambda data_frame: metrics.monthly.active_recurring_donors.custom_chart(data_frame))("monthly_metrics_pledges")
                         )
                     ]
                 ),
                 vm.Container(
-                    title="Active Donors",
+                    title="All Active Donors at Month End",
                     components=[
                         vm.Graph(
-                            id="active_pledges_chart",
-                            figure=capture('graph')(lambda data_frame: metrics.monthly.pledges.active_pledges_chart(data_frame))("monthly_metrics_pledges")
-                        ),
-                        vm.Graph(
-                            id="active_arr_chart",
-                            figure=capture('graph')(lambda data_frame: metrics.monthly.arr.custom_chart(data_frame, start_column='pledge_starts_at', end_column='pledge_ended_at'))("monthly_metrics_pledges")
+                            id="all_active_donors_chart",
+                            figure=capture('graph')(lambda data_frame: metrics.monthly.all_active_donors.custom_chart(data_frame))("monthly_metrics_pledges")
                         )
                     ]
                 ),
                 vm.Container(
-                    title="Pledged Donors",
+                    title="Attrition Rate",
                     components=[
                         vm.Graph(
-                            id="future_pledges_chart",
-                            figure=capture('graph')(lambda data_frame: metrics.monthly.pledges.future_pledges_chart(data_frame))("monthly_metrics_pledges")
-                        ),
-                        vm.Graph(
-                            id="future_arr_chart",
-                            figure=capture('graph')(lambda data_frame: metrics.monthly.arr.custom_chart(data_frame, start_column='pledge_created_at', end_column='pledge_starts_at'))("monthly_metrics_pledges")
+                            id="attrition_rate_chart",
+                            figure=capture('graph')(lambda data_frame: metrics.monthly.attrition.attrition_chart(data_frame))("monthly_metrics_pledges")
                         )
+                    ]
+                ),
+                vm.Container(
+                    title="Monthly Donations",
+                    components=[
+                        vm.Graph(
+                            id="monthly_donations_chart",
+                            figure=capture('graph')(lambda data_frame: metrics.monthly.monthly_donations.custom_chart(data_frame))("monthly_metrics_payments")
+                        )
+                    ]
+                ),
+                vm.Container(
+                    title="Monthly Pledges",
+                    components=[
+                        vm.Tabs(tabs=[
+                            vm.Container(
+                                title="Active + Pledged Donors",
+                                components=[
+                                    vm.Graph(
+                                        id="pledges_chart",
+                                        figure=capture('graph')(lambda data_frame: metrics.monthly.pledges.pledges_chart(data_frame))("monthly_metrics_pledges")
+                                    )
+                                ]
+                            ),
+                            vm.Container(
+                                title="Active Donors",
+                                components=[
+                                    vm.Graph(
+                                        id="active_pledges_chart",
+                                        figure=capture('graph')(lambda data_frame: metrics.monthly.pledges.active_pledges_chart(data_frame))("monthly_metrics_pledges")
+                                    )
+                                ]
+                            ),
+                            vm.Container(
+                                title="Pledged Donors",
+                                components=[
+                                    vm.Graph(
+                                        id="future_pledges_chart",
+                                        figure=capture('graph')(lambda data_frame: metrics.monthly.pledges.future_pledges_chart(data_frame))("monthly_metrics_pledges")
+                                    )
+                                ]
+                            )
+                        ])
+                    ]
+                ),
+                vm.Container(
+                    title="Monthly ARR",
+                    components=[
+                        vm.Tabs(tabs=[
+                            vm.Container(
+                                title="Active + Pledged Donors",
+                                components=[
+                                    vm.Graph(
+                                        id="arr_chart",
+                                        figure=capture('graph')(lambda data_frame: metrics.monthly.arr.custom_chart(data_frame, start_column='pledge_created_at', end_column='pledge_ended_at'))("monthly_metrics_pledges")
+                                    )
+                                ]
+                            ),
+                            vm.Container(
+                                title="Active Donors",
+                                components=[
+                                    vm.Graph(
+                                        id="active_arr_chart",
+                                        figure=capture('graph')(lambda data_frame: metrics.monthly.arr.custom_chart(data_frame, start_column='pledge_starts_at', end_column='pledge_ended_at', subtitle='Active pledges only'))("monthly_metrics_pledges")
+                                    )
+                                ]
+                            ),
+                            vm.Container(
+                                title="Pledged Donors",
+                                components=[
+                                    vm.Graph(
+                                        id="future_arr_chart",
+                                        figure=capture('graph')(lambda data_frame: metrics.monthly.arr.custom_chart(data_frame, start_column='pledge_created_at', end_column='pledge_starts_at', subtitle='Future pledges only'))("monthly_metrics_pledges")
+                                    )
+                                ]
+                            )
+                        ])
                     ]
                 )
             ])

@@ -196,6 +196,7 @@ def get_figure(data_frame):
     Returns:
         A Dash Bootstrap card component
     """
+    data_frame = data_frame.copy()
     if 'fiscal_year' in data_frame.columns:
         start_date = pd.to_datetime(f"{data_frame['fiscal_year'].iloc[-1].split('-')[0]}-07-01")
         end_date = pd.to_datetime(f"{data_frame['fiscal_year'].iloc[-1].split('-')[1]}-06-30")

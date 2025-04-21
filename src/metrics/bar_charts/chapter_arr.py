@@ -120,24 +120,32 @@ if __name__ == "__main__":
     
     # Get all unique chapter types
     chapter_types = sorted(pledges_df['chapter_type'].unique())
+
+
+    # fig = custom_chart(pledges_df, None, subtitle='Active and future pledges')
+    fig = custom_chart(pledges_df, start_column='pledge_created_at', end_column='pledge_ended_at')
+
+    # Set dark theme
+    fig.update_layout(template="plotly_dark")
+    fig.show()
     
     # Create and display a chart for each chapter type
-    for chapter_type in chapter_types:
-        fig = custom_chart(pledges_df, chapter_type, subtitle='Active and future pledges')
-        # Set dark theme
-        fig.update_layout(template="plotly_dark")
-        fig.show()
+    # for chapter_type in chapter_types:
+    #     fig = custom_chart(pledges_df, chapter_type, subtitle='Active and future pledges')
+    #     # Set dark theme
+    #     fig.update_layout(template="plotly_dark")
+    #     fig.show()
 
-    for chapter_type in chapter_types:
-        fig = custom_chart(pledges_df, chapter_type, subtitle='Active pledges only', start_column='pledge_starts_at')
-        # Set dark theme
-        fig.update_layout(template="plotly_dark")
-        fig.show()
+    # for chapter_type in chapter_types:
+    #     fig = custom_chart(pledges_df, chapter_type, subtitle='Active pledges only', start_column='pledge_starts_at')
+    #     # Set dark theme
+    #     fig.update_layout(template="plotly_dark")
+    #     fig.show()
 
-    for chapter_type in chapter_types:
-        fig = custom_chart(pledges_df, chapter_type, subtitle='Future pledges only', end_column='pledge_starts_at')
-        # Set dark theme
-        fig.update_layout(template="plotly_dark")
-        fig.show()
+    # for chapter_type in chapter_types:
+    #     fig = custom_chart(pledges_df, chapter_type, subtitle='Future pledges only', end_column='pledge_starts_at')
+    #     # Set dark theme
+    #     fig.update_layout(template="plotly_dark")
+    #     fig.show()
 
 # %%

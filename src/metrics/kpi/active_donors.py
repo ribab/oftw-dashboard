@@ -21,6 +21,7 @@ def calculate_all_active_donors(data_frame):
     Returns:
         Integer representing the total number of active donors
     """
+    data_frame = data_frame.copy()
     # Convert date columns to datetime objects
     data_frame['pledge_created_at'] = pd.to_datetime(data_frame['pledge_created_at'])
     data_frame['pledge_starts_at'] = pd.to_datetime(data_frame['pledge_starts_at'])

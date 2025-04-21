@@ -22,6 +22,7 @@ import calendar
 
 def calculate_monthly_arr(data_frame, start_column, end_column):
     """Calculate ARR for each chapter at each month end using change tracking"""
+    data_frame = data_frame.copy()
     # Convert date columns to datetime
     for col in ['pledge_created_at', 'pledge_starts_at', 'pledge_ended_at']:
         data_frame[col] = pd.to_datetime(data_frame[col])
@@ -135,6 +136,7 @@ def custom_chart(
         chapter_type: Optional string specifying which chapter type to plot
         target: Optional float specifying the target line value
     """
+    data_frame = data_frame.copy()
     # Calculate monthly ARR for all chapters
     monthly_arr_df = calculate_monthly_arr(data_frame, start_column, end_column)
     

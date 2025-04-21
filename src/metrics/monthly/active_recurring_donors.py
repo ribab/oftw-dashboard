@@ -10,6 +10,7 @@ import calendar
 
 
 def custom_chart(data_frame):
+    data_frame = data_frame.copy()
     print(f"Initial data shape: {data_frame.shape}")
     print(f"Unique pledge_status values: {data_frame['pledge_status'].unique()}")
 

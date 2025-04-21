@@ -26,6 +26,7 @@ def create_money_moved_kpi_card(data_frame, counterfactual=False):
     Returns:
         dash component: A KPI card showing money moved metrics
     """
+    data_frame = data_frame.copy()
     # Import the KPI card component
     
     # Set target based on counterfactual flag
@@ -120,6 +121,7 @@ def create_money_moved_kpi_card(data_frame, counterfactual=False):
 
 
 def money_moved_chart(data_frame, counterfactual=False, breakdown_by=None):
+    data_frame = data_frame.copy()
     if counterfactual:
         target = MONEY_MOVED_COUNTERFACTUAL_TARGET
         target_label = "Target: 1.26M"

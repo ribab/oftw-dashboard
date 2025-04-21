@@ -22,6 +22,7 @@ def calculate_current_arr(data_frame, start_column, end_column, month=None):
     Returns:
         float: Total ARR value
     """
+    data_frame = data_frame.copy()
     # remove One-Time pledges
     data_frame = data_frame[data_frame['pledge_status'] != 'One-Time']
     # Convert date columns to datetime
@@ -197,7 +198,7 @@ def create_active_arr_kpi_card(data_frame, target_arr=1_200_000, month=None):
 if __name__ == '__main__':
     import sys
     from pathlib import Path
-    project_root = Path(__file__).parent.parent.parent.parent
+    project_root = Path(__file__).parent.parent.parent
     if str(project_root) not in sys.path:
         sys.path.append(str(project_root))
     
