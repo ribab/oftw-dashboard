@@ -9,6 +9,9 @@ import vizro.models as vm
 import vizro.plotly.express as px
 from vizro import Vizro
 from vizro.models.types import capture
+from dash import html
+from dash.dependencies import Input, Output
+import dash_bootstrap_components as dbc
 
 # Load environment variables from .env file
 load_dotenv()
@@ -580,9 +583,25 @@ def get_app():
         title="One for the World Analytics"
     )
     
-    # Build the dashboard and expose server for gunicorn
-    app = Vizro().build(dashboard)
-    return app
+    vizro_app = Vizro().build(dashboard)
+    dash_app = vizro_app.dash
+    # Add callback to replace the header after the app is fully loaded
+    @dash_app.callback(
+        Output("page-header", "children"),
+        Input("page-header", "children")
+    )
+    def update_header(children):
+        return [
+            children[0],
+            html.Div([
+                html.Span('Created by Richard Barella', style={'marginRight': '15px'}),
+                dbc.NavItem(dbc.NavLink(html.I(className="fab fa-github fa-lg"), href="https://github.com/ribab/oftw-dashboard", target="_blank", className="me-3")),
+                dbc.NavItem(dbc.NavLink(html.I(className="fab fa-linkedin fa-lg"), href="https://linkedin.com/in/richard-barella", target="_blank", className="me-3")),
+                dbc.NavItem(dbc.NavLink(html.I(className="fas fa-blog fa-lg"), href="https://codingwithricky.com", target="_blank")),
+            ]),
+            *children[1:]
+        ]
+    return vizro_app
 
 if __name__ == "__main__":
     app = get_app()
